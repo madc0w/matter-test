@@ -263,14 +263,12 @@ function load() {
 
 	function initSounds() {
 		for (const key in sounds) {
-			const filename = `/sounds/${sounds[key]}`;
+			const path = `/sounds/${sounds[key]}`;
 			const url = new URL(location.href);
 			if (url.protocol == 'file:') {
-				url.pathname =
-					url.pathname.substring(0, url.pathname.lastIndexOf('/')) + filename;
-			} else {
-				url.pathname += filename;
+				url.pathname = url.pathname.substring(0, url.pathname.lastIndexOf('/'));
 			}
+			url.pathname += path;
 			console.log('initSounds: url', url.toString());
 			const audio = new Audio(url.toString());
 			sounds[key] = audio;
