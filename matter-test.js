@@ -1,3 +1,8 @@
+const sounds = {
+	fuse: 'click.mp3',
+	maxSize: 'boom.mp3',
+};
+
 function load() {
 	// This script relies on Matter.js (e.g., loaded via a <script> tag or import).
 
@@ -126,22 +131,22 @@ function load() {
 	// Each shape + size gets its own color
 	const shapeColorMap = {
 		circle: [
-			'#FFB8B8', // XS
-			'#FF9191', // S
-			'#FF6B6B', // M
-			'#FF4040', // L
+			'#FF9898', // XS
+			'#FF7171', // S
+			'#FF4B4B', // M
+			'#FF2020', // L
 		],
 		roundedRect: [
-			'#B8FFB8', // XS
-			'#91FF91', // S
-			'#6BFF6B', // M
-			'#40FF40', // L
+			'#98FF98', // XS
+			'#71FF71', // S
+			'#4BFF4B', // M
+			'#20FF20', // L
 		],
 		roundedTriangle: [
-			'#B8B8FF', // XS
-			'#9191FF', // S
-			'#6B6BFF', // M
-			'#4040FF', // L
+			'#9898FF', // XS
+			'#7171FF', // S
+			'#4B4BFF', // M
+			'#2020FF', // L
 		],
 	};
 
@@ -249,17 +254,12 @@ function load() {
 	}
 
 	function playMaxSizeSound() {
-		audio.play(sounds.maxSize);
+		sounds.maxSize.play();
 	}
 
 	function playFuseSound() {
-		audio.play(sounds.fuse);
+		sounds.fuse.play();
 	}
-
-	const sounds = {
-		fuse: 'click.mp3',
-		maxSize: 'boom.mp3',
-	};
 
 	function initSounds() {
 		for (const key in sounds) {
