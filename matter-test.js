@@ -269,7 +269,7 @@ function load() {
 				url.pathname =
 					url.pathname.substring(0, url.pathname.lastIndexOf('/')) + filename;
 			} else {
-				url.pathname = filename;
+				url.pathname += filename;
 			}
 			console.log('initSounds: url', url.toString());
 			const audio = new Audio(url.toString());
