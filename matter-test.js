@@ -266,6 +266,7 @@ function load() {
 				url.pathname.substring(0, url.pathname.lastIndexOf('/')) + filename;
 		} else {
 			url.pathname = filename;
+			console.log('playSound: url', url.toString());
 		}
 		const audio = new Audio(url.toString());
 		audio.play();
@@ -309,7 +310,7 @@ function load() {
 
 	// If current shape is off-screen or at rest on the floor, spawn another
 	(function update() {
-		console.log('update');
+		// console.log('update');
 		requestAnimationFrame(update);
 
 		if (currentShape) {
