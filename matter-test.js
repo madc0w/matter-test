@@ -16,8 +16,8 @@ function load() {
 	const Composite = Matter.Composite;
 
 	// Calculate the canvas size as 80% of the viewport
-	const canvasWidth = Math.floor(window.innerWidth * 0.8);
-	const canvasHeight = Math.floor(window.innerHeight * 0.8);
+	const canvasWidth = Math.floor(window.innerWidth * 0.92);
+	const canvasHeight = Math.floor(window.innerHeight * 0.92);
 
 	// Create engine and world
 	const engine = Engine.create();
@@ -109,14 +109,18 @@ function load() {
 
 	const SHAPE_TYPES = ['circle', 'roundedRect', 'roundedTriangle'];
 
-	// DOUBLE the original sizes
-	// (circleRadius, rectSize, chamferRadius are all doubled)
 	const SIZE_LEVELS = [
 		{ label: 'XS', circleRadius: 40, rectSize: 80, chamferRadius: 16 },
 		{ label: 'S', circleRadius: 60, rectSize: 120, chamferRadius: 32 },
 		{ label: 'M', circleRadius: 80, rectSize: 160, chamferRadius: 48 },
 		{ label: 'L', circleRadius: 100, rectSize: 200, chamferRadius: 64 },
 	];
+	const sizeFactor = canvasWidth / 2000;
+	for (const sl of SIZE_LEVELS) {
+		sl.circleRadius *= sizeFactor;
+		sl.rectSize *= sizeFactor;
+		sl.chamferRadius *= sizeFactor;
+	}
 
 	// Each shape + size gets its own color
 	const shapeColorMap = {
@@ -234,14 +238,12 @@ function load() {
 	 */
 	function spawnShape() {
 		const type = SHAPE_TYPES[Math.floor(Math.random() * SHAPE_TYPES.length)];
-		createShapeAtPosition(type, 0, randomXWithinCanvas(), -60);
-	}
-
-	/**
-	 * Generate a random X position within the canvas
-	 */
-	function randomXWithinCanvas() {
-		return Math.random() * (canvasWidth - 60) + 30;
+		createShapeAtPosition(
+			type,
+			0,
+			Math.random() * (canvasWidth - 60) + 30,
+			-60
+		);
 	}
 
 	/**
