@@ -164,6 +164,7 @@ function load() {
 				if (dataA.type === dataB.type && dataA.sizeIndex === dataB.sizeIndex) {
 					// Fuse if not max size
 					if (dataA.sizeIndex < SIZE_LEVELS.length - 1) {
+						playFuseSound();
 						Composite.remove(world, bodyA);
 						Composite.remove(world, bodyB);
 						createShapeAtPosition(
@@ -250,9 +251,23 @@ function load() {
 	 * Play sound for largest shape
 	 */
 	function playMaxSizeSound() {
-		const audio = new Audio(
-			'https://actions.google.com/sounds/v1/alarms/beep_short.ogg'
-		);
+		playSound('boom.mp3');
+	}
+
+	function playFuseSound() {
+		playSound('click.mp3');
+	}
+
+	function playSound(filename) {
+		filename = `/sounds/${filename}`;
+		const url = new URL(location.href);
+		if (url.protocol == 'file:') {
+			url.pathname =
+				url.pathname.substring(0, url.pathname.lastIndexOf('/')) + filename;
+		} else {
+			url.pathname = filename;
+		}
+		const audio = new Audio(url.toString());
 		audio.play();
 	}
 
