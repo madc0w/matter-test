@@ -1,6 +1,7 @@
 function load() {
 	// This script relies on Matter.js (e.g., loaded via a <script> tag or import).
-	// All shapes have been doubled in size compared to the previous version.
+
+	initSounds();
 
 	////////////////////////////////////////////////////////
 	// GLOBALS & ENGINE SETUP
@@ -247,29 +248,33 @@ function load() {
 		);
 	}
 
-	/**
-	 * Play sound for largest shape
-	 */
 	function playMaxSizeSound() {
-		playSound('boom.mp3');
+		audio.play(sounds.maxSize);
 	}
 
 	function playFuseSound() {
-		playSound('click.mp3');
+		audio.play(sounds.fuse);
 	}
 
-	function playSound(filename) {
-		filename = `/sounds/${filename}`;
-		const url = new URL(location.href);
-		if (url.protocol == 'file:') {
-			url.pathname =
-				url.pathname.substring(0, url.pathname.lastIndexOf('/')) + filename;
-		} else {
-			url.pathname = filename;
-			console.log('playSound: url', url.toString());
+	const sounds = {
+		fuse: 'click.mp3',
+		maxSize: 'boom.mp3',
+	};
+
+	function initSounds() {
+		for (const key in sounds) {
+			const filename = `/sounds/${sounds[key]}`;
+			const url = new URL(location.href);
+			if (url.protocol == 'file:') {
+				url.pathname =
+					url.pathname.substring(0, url.pathname.lastIndexOf('/')) + filename;
+			} else {
+				url.pathname = filename;
+			}
+			console.log('initSounds: url', url.toString());
+			const audio = new Audio(url.toString());
+			sounds[key] = audio;
 		}
-		const audio = new Audio(url.toString());
-		audio.play();
 	}
 
 	////////////////////////////////////////////////////////
